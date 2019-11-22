@@ -58,7 +58,7 @@ with airflow.DAG(
             dag=dag,
         )
         dumm_t = DummyOperator(
-            task_id="task_for_" + weekday_person_to_email[day] + day, dag=dag
+            task_id="task_for_" + weekday_person_to_email[day] + str(day), dag=dag
         )
 
         printd >> bop >> dumm_t >> final_task
