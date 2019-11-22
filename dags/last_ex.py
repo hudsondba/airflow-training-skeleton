@@ -9,11 +9,12 @@ default_args = {"owner": "hudson", "email": "hudson.santos@cg.nl"}
 
 
 with airflow.DAG(
-    dag_id="test_dag_4",
+    dag_id="test_dag_8",
     start_date=datetime(2019, 9, 28),
     schedule_interval=None,
     catchup=False,
     default_args=default_args,
+
 ) as dag:
 
     sql  = "select * from land_registry_price_paid_uk"
@@ -25,3 +26,5 @@ with airflow.DAG(
         sql=sql,
         bucket=bucket_name,
         filename='land_registry_price_paid_uk_{}.json')
+
+
