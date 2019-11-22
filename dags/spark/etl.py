@@ -19,19 +19,16 @@ import sys
 
 from pyspark.sql import SparkSession
 
-spark = SparkSession\
-    .builder\
-    .appName("ETL")\
-    .getOrCreate()
+spark = SparkSession.builder.appName("ETL").getOrCreate()
 
-#date = sys.argv[1]
+# date = sys.argv[1]
 date = "2019-01-01"
 
 url = "jdbc:postgresql://192.168.1.113:32345/airflow?user=airflow&password=airflow"
-prop = {"driver": 'org.postgresql.Driver'}
+prop = {"driver": "org.postgresql.Driver"}
 
-df = spark.read.format('jdbc').options(url=url, dbtable='log', properties=prop).load()
+df = spark.read.format("jdbc").options(url=url, dbtable="log", properties=prop).load()
 
-df.write.option("compression", "none").mode('overwrite').parquet("/dags/data/postgres/")
+df.write.option("compression", "none").mode("overwrite").parquet("/dags/data/postgres/")
 
 spark.stop()

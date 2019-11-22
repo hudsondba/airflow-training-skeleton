@@ -84,39 +84,54 @@ class SparkSubmitOperator(BaseOperator):
                          Some distros may use spark2-submit.
     :type spark_binary: string
     """
-    template_fields = ('_application', '_conf', '_files', '_py_files', '_jars', '_driver_class_path',
-                       '_packages', '_exclude_packages', '_keytab', '_principal', '_name',
-                       '_application_args', '_env_vars')
-    ui_color = WEB_COLORS['LIGHTORANGE']
+
+    template_fields = (
+        "_application",
+        "_conf",
+        "_files",
+        "_py_files",
+        "_jars",
+        "_driver_class_path",
+        "_packages",
+        "_exclude_packages",
+        "_keytab",
+        "_principal",
+        "_name",
+        "_application_args",
+        "_env_vars",
+    )
+    ui_color = WEB_COLORS["LIGHTORANGE"]
 
     @apply_defaults
-    def __init__(self,
-                 application='',
-                 conf=None,
-                 conn_id='spark_default',
-                 files=None,
-                 py_files=None,
-                 archives=None,
-                 driver_class_path=None,
-                 jars=None,
-                 java_class=None,
-                 packages=None,
-                 exclude_packages=None,
-                 repositories=None,
-                 total_executor_cores=None,
-                 executor_cores=None,
-                 executor_memory=None,
-                 driver_memory=None,
-                 keytab=None,
-                 principal=None,
-                 name='airflow-spark',
-                 num_executors=None,
-                 application_args=None,
-                 env_vars=None,
-                 verbose=False,
-                 spark_binary="spark-submit",
-                 *args,
-                 **kwargs):
+    def __init__(
+        self,
+        application="",
+        conf=None,
+        conn_id="spark_default",
+        files=None,
+        py_files=None,
+        archives=None,
+        driver_class_path=None,
+        jars=None,
+        java_class=None,
+        packages=None,
+        exclude_packages=None,
+        repositories=None,
+        total_executor_cores=None,
+        executor_cores=None,
+        executor_memory=None,
+        driver_memory=None,
+        keytab=None,
+        principal=None,
+        name="airflow-spark",
+        num_executors=None,
+        application_args=None,
+        env_vars=None,
+        verbose=False,
+        spark_binary="spark-submit",
+        *args,
+        **kwargs
+    ):
         super().__init__(*args, **kwargs)
         self._application = application
         self._conf = conf
@@ -171,7 +186,7 @@ class SparkSubmitOperator(BaseOperator):
             application_args=self._application_args,
             env_vars=self._env_vars,
             verbose=self._verbose,
-            spark_binary=self._spark_binary
+            spark_binary=self._spark_binary,
         )
         self._hook.submit(self._application)
 
