@@ -29,10 +29,7 @@ weekday_person_to_email = {
 
 
 def branch_fnc(**kwargs):
-    return (
-        "task_for_"
-        + weekday_person_to_email[kwargs["ti"].xcom_pull(task_ids="weekday", key="day")]
-    )
+    return "task_for_" + weekday_person_to_email[pendulum.today().weekday()]
 
 
 def pweedd():
