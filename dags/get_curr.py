@@ -1,4 +1,4 @@
-from airflow_training.operators import HttpToGcsOperator
+from operators import HttpToGcsOperator
 from datetime import timedelta, datetime
 import airflow
 
