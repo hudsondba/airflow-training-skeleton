@@ -3,7 +3,6 @@ from datetime import timedelta, datetime
 import airflow
 
 
-
 default_args = {"owner": "hudson", "email": "hudson.santos@cg.nl"}
 
 
@@ -13,18 +12,16 @@ with airflow.DAG(
     schedule_interval=None,
     catchup=False,
     default_args=default_args,
-
 ) as dag:
 
-    bucket_name = 'airflow-training-data-hudson'
+    bucket_name = "airflow-training-data-hudson"
 
-    currency  = 'EUR'
+    currency = "EUR"
 
     HttpToGcsOperator(
         task_id="get_currency_" + currency,
         method="GET",
-        endpoint=
-        f"/history?start_at={{yesterday_ds}}&end_at={{ds}}&symbols={currency}&base=GBP",
+        endpoint=f"/history?start_at={{yesterday_ds}}&end_at={{ds}}&symbols={currency}&base=GBP",
         http_conn_id="airflow-training-currency-http",
         gcs_path="currency/{{ ds }}-" + currency + ".json",
         gcs_bucket="airflow-training-data",

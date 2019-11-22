@@ -3,7 +3,9 @@ import pendulum
 
 import airflow
 from airflow.models import DAG
-from airflow.contrib.operators.postgres_to_gcs_operator import PostgresToGoogleCloudStorageOperator
+from airflow.contrib.operators.postgres_to_gcs_operator import (
+    PostgresToGoogleCloudStorageOperator,
+)
 
 default_args = {"owner": "hudson", "email": "hudson.santos@cg.nl"}
 
@@ -14,17 +16,15 @@ with airflow.DAG(
     schedule_interval=None,
     catchup=False,
     default_args=default_args,
-
 ) as dag:
 
-    sql  = "select * from land_registry_price_paid_uk"
-    bucket_name = 'airflow-training-data-hudson'
+    sql = "select * from land_registry_price_paid_uk"
+    bucket_name = "airflow-training-data-hudson"
 
     op = PostgresToGoogleCloudStorageOperator(
-        task_id='land_registry_price_paid_uk',
-        postgres_conn_id='trainingdb',
+        task_id="land_registry_price_paid_uk",
+        postgres_conn_id="trainingdb",
         sql=sql,
         bucket=bucket_name,
-        filename='land_registry_price_paid_uk_{}.json')
-
-
+        filename="land_registry_price_paid_uk_{}.json",
+    )
