@@ -18,15 +18,14 @@ def print_current_dt():
 tasks_list = []
 
 weekday_person_to_email = {
-    0: "Bob",  # Monday
-    1: "Joe",  # Tuesday
-    2: "Alice",  # Wednesday
-    3: "Joe",  # Thursday
-    4: "Alice",  # Friday
-    5: "Alice",  # Saturday
-    6: "Alice",  # Sunday
-}
-
+    0: "Bob", # Monday
+    1: "Joe", # Tuesday
+    2: "Alice", # Wednesday
+    3: "Joe", # Thursday
+    4: "Alice", # Friday
+    5: "Alice", # Saturday
+    6: "Alice", # Sunday
+    }
 
 def branch_fnc(**kwargs):
     return "task_for_" + weekday_person_to_email[pendulum.today().weekday()]
@@ -34,7 +33,6 @@ def branch_fnc(**kwargs):
 
 def pweedd():
     print(pendulum.today().weekday())
-
 
 with airflow.DAG(
     dag_id="test_dag_4",
@@ -52,13 +50,8 @@ with airflow.DAG(
         )
 
         bop = BranchPythonOperator(
-            task_id="branching",
-            python_callable=branch_fnc,
-            provide_context=True,
-            dag=dag,
+            task_id="branching", python_callable=branch_fnc, provide_context=True, dag=dag
         )
-        dumm_t = DummyOperator(
-            task_id="task_for_" + weekday_person_to_email[day], dag=dag
-        )
+        dumm_t = DummyOperator(task_id='task_for_'+ weekday_person_to_email[day], dag=dag)
 
         printd >> bop >> dumm_t >> final_task
