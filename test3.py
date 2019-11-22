@@ -22,8 +22,8 @@ tasks_list = []
 
 with airflow.DAG(
     dag_id="test_dag_3",
-    start_date=datetime(2019, 11, 22),
-    schedule_interval=None,
+    start_date=datetime(2019, 11, 17),
+    schedule_interval="@daily",
     catchup=False,
     default_args=default_args,
 ) as dag:
