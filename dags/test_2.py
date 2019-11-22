@@ -16,7 +16,7 @@ args = {
 dag = DAG(
     dag_id='test_dag_2',
     default_args=args,
-    schedule_interval='0 0 * * *',
+    schedule_interval=None,
     dagrun_timeout=timedelta(minutes=60),
 )
 
@@ -30,19 +30,19 @@ task_pd = PythonOperator(
 )
 
 wait1 = BashOperator(
-    task_id='wait 1 ',
+    task_id='wait_1',
     bash_command='sleep 1',
     dag=dag,
 )
 
 wait5 = BashOperator(
-    task_id='wait 5 ',
+    task_id='wait_5',
     bash_command='sleep 1',
     dag=dag,
 )
 
 wait10 = BashOperator(
-    task_id='wait 10 ',
+    task_id='wait_10',
     bash_command='sleep 1',
     dag=dag,
 )
@@ -51,4 +51,4 @@ end_t = DummyOperator(task_id="end_task", dag=dag,)
 
 
 
-task_pd >> [wait1, wait5,wait10] >> end_t
+task_pd >> [wait1, wait5, wait10] >> end_t
