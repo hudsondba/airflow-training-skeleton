@@ -1,4 +1,4 @@
-from operators import HttpToGcsOperator
+from operators import http_to_gcs_operator
 from datetime import timedelta, datetime
 import airflow
 
@@ -18,7 +18,7 @@ with airflow.DAG(
 
     currency = "EUR"
 
-    HttpToGcsOperator(
+    http_to_gcs_operator.HttpToGcsOperator(
         task_id="get_currency_" + currency,
         method="GET",
         endpoint=f"/history?start_at={{yesterday_ds}}&end_at={{ds}}&symbols={currency}&base=GBP",
