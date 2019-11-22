@@ -28,8 +28,8 @@ with airflow.DAG(
         method="GET",
         #endpoint="/history?start_at={START_DATE}&end_at={UNTILL_DATE}&symbols={currency}&base=GBP".format(START_DATE=START_DATE,UNTILL_DATE=UNTILL_DATE,currency=currency),
         endpoint="/history?start_at={{yesterday_ds}}&end_at={{ds}}&symbols=EUR&base=GBP",
-        http_conn_id="airflow-training-currency-http",
+        http_conn_id='airflow-training-currency-http',
         gcs_path="currency/{{ ds }}-" + currency + ".json",
-        gcs_bucket="airflow-training-data",
+        gcs_bucket=bucket_name,
         dag=dag,
     )
