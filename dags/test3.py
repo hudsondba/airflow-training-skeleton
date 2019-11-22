@@ -16,8 +16,6 @@ default_args = {
 def print_current_dt():
     print(datetime.today())
 
-
-
 tasks_list = []
 
 with airflow.DAG(
