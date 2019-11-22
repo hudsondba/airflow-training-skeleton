@@ -24,5 +24,4 @@ with airflow.DAG(
         postgres_conn_id='trainingdb',
         sql=sql,
         bucket=bucket_name,
-        export_format='CSV',
-        filename='land_registry_price_paid_uk.csv')
+        filename='land_registry_price_paid_uk_{}.json')
